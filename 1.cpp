@@ -1,3 +1,4 @@
+//Hash table solution
 class Solution {
 public:
     // value as key, i as value;
