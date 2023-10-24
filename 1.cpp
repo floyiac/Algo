@@ -1,4 +1,5 @@
 //Hash table solution
+//think about using hash table when it is related with unique elements.
 class Solution {
 public:
     // value as key, i as value;
