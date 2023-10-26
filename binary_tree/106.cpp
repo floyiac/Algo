@@ -11,43 +11,45 @@
  */
 class Solution {
 public:
-    TreeNode* traverse(vector<int>& inorder, vector<int>& postorder){
-        if(postorder.size() == 0){
+    TreeNode* traverse(vector<int>& in, vector<int>&post){
+        if(post.size() == 0){
             return NULL;
         }
-        int root_value = postorder[postorder.size() - 1];
-        TreeNode* root = new TreeNode(root_value);
+        int rootvalue = post[post.size()-1];
+        TreeNode* root = new TreeNode(rootvalue);
 
-        if(postorder.size() == 1){
+        if(post.size() == 1){
+            //Leaf Node
             return root;
         }
-        for(int i=0; i<inorder.size() ; i++){
-            if(inorder[i] == root_value){
-                break;
-            }
-        }
+
+        //Seperate the in order
         int div = 0;
-        for(;div<inorder.size();div++){
-            if(inorder[div] == root_value){
+        for(;div<in.size();div++){
+            if(in[div] == rootvalue){
                 break;
             }
         }
+        
+        //Seperate in vector
+        vector<int> in_left(in.begin(),in.begin()+div);
+        vector<int> in_right(in.begin()+div+1,in.end());
+        
+        //Resize postorder to delete root
+        post.resize(post.size()-1);
+        
+        vector<int> post_left(post.begin(),post.begin()+in_left.size());
+        vector<int> post_right(post.begin()+in_left.size(),post.end());
 
-        vector<int> left_inorder(inorder.begin(),inorder.begin()+div);
-        vector<int> right_inorder(inorder.begin()+div + 1,inorder.end());
+        root->left =traverse(in_left,post_left);
+        root->right = traverse(in_right,post_right);
 
-        postorder.resize(postorder.size()-1);
-
-        vector<int> left_postorder(postorder.begin(),postorder.begin()+left_inorder.size());
-        vector<int> right_postorder(postorder.begin()+left_inorder.size(),postorder.end());
-        root->left = traverse(left_inorder,left_postorder);
-        root->right = traverse(right_inorder,right_postorder);
         return root;
     }
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        if (inorder.size() == 0 || postorder.size() == 0){
+        if(inorder.size() == 0){
             return NULL;
-        }   
+        }
         return traverse(inorder,postorder);
     }
 };
