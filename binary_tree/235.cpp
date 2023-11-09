@@ -19,6 +19,7 @@ public:
             // all in right subtree
             return lowestCommonAncestor(root->right,p,q);
         }
+        // one in left, one in right, return root
         return root;
     }
-};
+};;
