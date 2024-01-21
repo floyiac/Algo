@@ -1,2 +1,3 @@
 # Training for Leetcode Algorithm
-Sections include:
+
+It turns out that I'm so bad at algorithm ......
